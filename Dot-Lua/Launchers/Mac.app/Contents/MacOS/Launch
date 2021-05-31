@@ -1,0 +1,16 @@
+#!/bin/sh
+
+clear
+
+DIR=$(cd "$(dirname "$0")" && pwd)
+
+
+$DIR/../../../../Envoirment/Luvit/luvit $DIR/../../../../Main.lua
+function pause(){
+ read -s -n 1 -p "Press any key to continue . . ."
+ echo ""
+}
+
+
+pause
+exit
