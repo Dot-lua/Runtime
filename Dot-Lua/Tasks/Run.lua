@@ -1,3 +1,5 @@
-return function(Args)
+return {
+    Execute = function(Args)
     
-end
+    end
+}
