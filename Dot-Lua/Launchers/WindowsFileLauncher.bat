@@ -1,0 +1,5 @@
+echo Start
+
+echo %*
+
+pause
