@@ -48,8 +48,6 @@ coroutine.wrap(function ()
         end
 
     end
-
-
     
     print()
     
