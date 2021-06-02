@@ -47,7 +47,7 @@ function ProcessHelper.Log(level, msg, ...)
 	Watch:stop()
 
 	local d = date("%Y-%m-%d %H:%M:%S")
-	stdout:write(format('%s %s %s\n', tag[2], Watch:getTime():toString(), msg))
+	stdout:write(format('%s in [%s]: %s\n', tag[2], Watch:getTime():toString(), msg))
 
 	return msg
 
