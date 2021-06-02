@@ -11,13 +11,29 @@ return {
             return
         end
 
-        local FilePos = Path.normalize(Args[1])
+        local FilePos = Path.resolve(Args[1])
+        local FileBase = Path.basename(FilePos)
+        local Extension = Path.extname(FileBase)
+        local Exists = FS.existsSync(FilePos)
+        
 
-        Logger.Info("Loading file " .. FilePos)
+        local CorrectExtension = Extension == ".dua"
 
-        if not FilePos then
-            ProcessHelper.Fail("File " .. Args[1] .. " not found!")
+        Logger.Info("Trying to load file " .. FilePos)
+        Logger.Info("File name is: " .. FileBase)
+        Logger.Info("Is Correct Extension: " .. tostring(CorrectExtension))
+        Logger.Info("Exists: " .. tostring(CorrectExtension))
+        
+        if not Exists or not Extension then
+            ProcessHelper.Fail("'" .. FileBase .. "' is not a valid DUA archive!")
             return
         end
+
+        ProcessId = require("RandomString")(10)
+
+        Logger.Info("Starting process with id: " .. ProcessId)
+
+        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/")
+        
     end
 }

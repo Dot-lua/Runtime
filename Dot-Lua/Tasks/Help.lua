@@ -23,7 +23,7 @@ return {
             Logger.Error("You can use the following commands:")
 
             for i, v in pairs(Tasks) do
-                Logger.Error("- " .. i .. " " .. table.concat(v.Arguments, " "))
+                Logger.Error("- " .. i)
             end
 
             ProcessHelper.Fail()

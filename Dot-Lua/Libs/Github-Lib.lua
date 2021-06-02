@@ -22,7 +22,7 @@ function GetRemote()
 end
 
 function Lib.GetVersion()
-    local FileData = Read("./Config/VersionData.json")
+    local FileData = Read("./Data/VersionData.json")
     local Decode = Json.decode(FileData)
 
     return Decode["Tag-Version"]
