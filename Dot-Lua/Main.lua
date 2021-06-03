@@ -2,6 +2,8 @@ coroutine.wrap(function ()
 
     print()
 
+    -- Path.resolve(args[0] .. "/../../../")
+
     local Args = args
     table.remove(Args, 0)
     table.remove(Args, 1)
