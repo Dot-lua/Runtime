@@ -6,9 +6,21 @@ local Http = require("coro-http")
 local Repro = "https://api.github.com/repos/Dot-lua/Runtime/releases"
 
 local FS = require('fs')
-local Read, Write, ReadDir = FS.readFileSync, FS.writeFileSync, FS.readdirSync
+local Read, Write, ReadDir, Exists = FS.readFileSync, FS.writeFileSync, FS.readdirSync, FS.existsSync
 
-function GetRemote()
+local RawData = Read("./Config/VersionData.json")
+local VersionData = Json.decode(RawData)
+
+if VersionData.NotCorrected then
+    VersionData.NotCorrected = nil
+    VersionData.GetRemote = true
+    VersionData.LastGotten = require("discordia").Date():toSeconds()
+
+    local EncodedVersionData = PrettyJson.stringify(VersionData, nil, 4)
+    Write("./Config/VersionData.json", EncodedVersionData)
+end
+
+local function GetRemote()
     local WebRequest, WebBody
     local Running = true
     local Times = 0
@@ -22,34 +34,16 @@ function GetRemote()
     return Decode[1].tag_name
 end
 
-local function Correct(Data)
-    if Data.NotCorrected then
-        Data.NotCorrected = nil
-        Data.GetRemote = true
-        Data.LastGotten = require("discordia").Date():toSeconds()
-
-        local Encoded = PrettyJson.stringify(Data, nil, 4)
-        Write("./Config/VersionData.json", Encoded)
-    end
-end
-
 function Lib.GetVersion()
-    local FileData = Read("./Config/VersionData.json")
-    local Decode = Json.decode(FileData)
-
-    Correct(Decode)
-
-    return Decode["Tag-Version"]
+    return VersionData["Tag-Version"]
 end
 
 function Lib.IsEnabled()
-    local FileData = Read("./Config/VersionData.json")
-    local Decode = Json.decode(FileData)
-
-    return Decode["GetRemote"]
+    return VersionData["GetRemote"]
 end
 
 function Lib.GetRemoteVersion()
+    print("two")
     if RemoteVersion then
         return RemoteVersion
     else
