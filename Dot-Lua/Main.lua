@@ -13,7 +13,7 @@ coroutine.wrap(function ()
     _G.Logger = require("Logger")
     _G.ProcessHelper = require("ProcessHelper")
     _G.FS = require("fs")
-    _G.Json = require("json").use_lpeg()
+    _G.Json = require("json")
     _G.Watch = require("discordia").Stopwatch()
     Watch:start()
     
@@ -42,7 +42,6 @@ coroutine.wrap(function ()
         Tasks.help.Execute(Args)
     else
         local Command = string.lower(Args[1])
-
         table.remove(Args, 1)
 
         if Tasks[Command] then
