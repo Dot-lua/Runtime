@@ -1,5 +1,5 @@
 {
-    "GetRemote": true,
+    "GetRemote": false,
     "Tag-Version_comment": "Read https:\/\/github.com\/Dot-lua\/Runtime\/wiki\/Coniguration First!",
     "LastGotten": 1622735826,
     "Tag-Version": "69.69.69"
