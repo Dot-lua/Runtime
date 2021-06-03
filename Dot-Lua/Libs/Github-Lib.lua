@@ -43,7 +43,6 @@ function Lib.IsEnabled()
 end
 
 function Lib.GetRemoteVersion()
-    print("two")
     if RemoteVersion then
         return RemoteVersion
     else
