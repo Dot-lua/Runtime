@@ -13,18 +13,22 @@ coroutine.wrap(function ()
     _G.Logger = require("Logger")
     _G.ProcessHelper = require("ProcessHelper")
     _G.FS = require("fs")
-    _G.Json = require("json")
+    _G.Json = require("json").use_lpeg()
     _G.Watch = require("discordia").Stopwatch()
     Watch:start()
     
-
-    if not GitLib.IsLatest() then
-        Logger.Warn("You are running an older version of the Dot-Lua Runtime!")
-        Logger.Warn("Update it! - View how to do so at http://Dotter.cubicinc.ga/update")
-        Logger.Warn("Your version: " .. GitLib.GetVersion() .. " Remote version: " .. GitLib.GetRemoteVersion())
+    if GitLib.IsEnabled() then
+        if not GitLib.IsLatest() then
+            Logger.Warn("You are running an older version of the Dot-Lua Runtime!")
+            Logger.Warn("Update it! - View how to do so at http://Dotter.cubicinc.ga/update")
+            Logger.Warn("Your version: " .. GitLib.GetVersion() .. " Remote version: " .. GitLib.GetRemoteVersion())
+        else
+            Logger.Info("Starting Runtime!")
+            Logger.Info("Running version " .. GitLib.GetVersion())
+        end
     else
-        Logger.Info("Starting Runtime!")
-        Logger.Info("Running version " .. GitLib.GetVersion())
+        Logger.Warn("The runtime is currently configurated to not get the remote version!")
+        Logger.Warn("You can ignore this if you know about this")
     end
 
     print()
