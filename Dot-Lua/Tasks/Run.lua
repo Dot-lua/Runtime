@@ -33,7 +33,13 @@ return {
 
         Logger.Info("Starting process with id: " .. ProcessId)
 
+        FS.mkdirSync("./Cache/Processes/")
         FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/")
+        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Archives/")
+        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Running/")
+        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Resources/")
+        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/UnpackCache/")
+        
         
     end
 }
