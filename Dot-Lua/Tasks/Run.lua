@@ -32,6 +32,8 @@ return {
 
         ProcessId = require("RandomString")(10)
 
+        print()
+
         Logger.Info("Starting process with id: " .. ProcessId)
 
         FS.mkdirSync("./Cache/Processes/")
@@ -40,9 +42,11 @@ return {
         FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Running/")
         FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Resources/")
         FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/UnpackCache/")
+
+        print()
         
         local CommandWindows = "PowerShell -NoProfile -ExecutionPolicy unrestricted -File ./Scripts/Loaders/DuaLoader.ps1 " .. ProcessId .. " " .. FilePos .. " " .. FileBase
-        local CommandMac = "sh ./Scripts/Loaders/DuaLoader.sh"
+        local CommandMac = "sh ./Scripts/Loaders/DuaLoader.sh " .. ProcessId .. " " .. FilePos .. " " .. FileBase
 
         local Handle
 
@@ -56,6 +60,33 @@ return {
         for Line in Handle:lines() do
             Logger.Info(Line)
         end
+
+        FS.renameSync(
+            "./Cache/Processes/" .. ProcessId .. "/UnpackCache/resources/",
+            "./Cache/Processes/" .. ProcessId .. "/Resources/"
+        )
+
+        FS.renameSync(
+            "./Cache/Processes/" .. ProcessId .. "/UnpackCache/package.info.lua",
+            "./Cache/Processes/" .. ProcessId .. "/Running/package.info.lua"
+        )
+
+        local DirFiles = FS.readdirSync("./Cache/Processes/" .. ProcessId .. "/UnpackCache/")
+
+        for i, v in pairs(DirFiles) do
+            FS.renameSync(
+                "./Cache/Processes/" .. ProcessId .. "/UnpackCache/" .. v,
+                "./Cache/Processes/" .. ProcessId .. "/Running/" .. v
+            )
+        end
+
+        local ProcessInfo = require("../Cache/Processes/" .. ProcessId .. "/Running/package.info.lua")
+
+        _G.Import = require("Runtime/Import")
+
+        Import(ProcessInfo.Entrypoints.Main)
+
+
 
     end
 }
