@@ -11,7 +11,7 @@ local function RandomString(Length)
         local ThisRandom = math.random(#BaseString)
         local Lower = math.random(1, 3) ~= 1
 
-        local Letter = string.sub(BaseString, ThisRandom, ThisRandom + 1)
+        local Letter = string.sub(BaseString, ThisRandom, ThisRandom)
         
         local LetterOut = Letter
 
