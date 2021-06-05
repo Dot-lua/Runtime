@@ -64,7 +64,9 @@ function Logger.Info(Msg, ...)
 end
 
 function Logger.Debug(Msg, ...)
-	Logger.Log(4, Msg, ... or "")
+	if ShowDebug then
+		Logger.Log(4, Msg, ... or "")
+	end
 end
 
 return Logger

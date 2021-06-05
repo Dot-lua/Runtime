@@ -8,7 +8,7 @@ local Repro = "https://api.github.com/repos/Dot-lua/Runtime/releases"
 local FS = require('fs')
 local Read, Write, ReadDir, Exists = FS.readFileSync, FS.writeFileSync, FS.readdirSync, FS.existsSync
 
-local RawData = Read("./Config/VersionData.json")
+local RawData = Read(RuntimePath .. "Config/VersionData.json")
 local VersionData = Json.decode(RawData)
 
 if VersionData.NotCorrected then
@@ -17,7 +17,7 @@ if VersionData.NotCorrected then
     VersionData.LastGotten = require("discordia").Date():toSeconds()
 
     local EncodedVersionData = PrettyJson.stringify(VersionData, nil, 4)
-    Write("./Config/VersionData.json", EncodedVersionData)
+    Write(RuntimePath .. "Config/VersionData.json", EncodedVersionData)
 end
 
 local function GetRemote()

@@ -10,6 +10,7 @@
 local date = os.date
 local format = string.format
 local stdout = _G.process.stdout.handle
+local Watch
 
 local BLACK   = 30
 local RED     = 31
@@ -61,4 +62,7 @@ function ProcessHelper.Complete(Msg, ...)
 	ProcessHelper.Log(2, Msg, ... or "")
 end
 
-return ProcessHelper
+return function(Wat)
+	Watch = Wat
+	return ProcessHelper
+end
