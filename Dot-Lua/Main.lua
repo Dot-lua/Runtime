@@ -68,19 +68,19 @@ coroutine.wrap(function ()
 
     print()
     
-    local Tasks = {
+    _G.RuntimeCommandsTasks = {
         run = require("./Tasks/Run.lua"),
         help = require("./Tasks/Help.lua")
     }
     
     if not Args[1] then
-        Tasks.help.Execute(Args)
+        RuntimeCommandsTasks.help.Execute(Args)
     else
         local Command = string.lower(Args[1])
         table.remove(Args, 1)
 
-        if Tasks[Command] then
-            Tasks[Command].Execute(Args)
+        if RuntimeCommandsTasks[Command] then
+            RuntimeCommandsTasks[Command].Execute(Args)
         else
             ProcessHelper.Fail("Command '" .. Command .. "' does not exist!")
         end
