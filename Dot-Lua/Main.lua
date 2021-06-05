@@ -11,13 +11,46 @@ coroutine.wrap(function ()
     _G.WorkingOS = Args[1]
     table.remove(Args, 1)
 
-    _G.GitLib = require("Github-Lib")
-    _G.Logger = require("Logger")
-    _G.ProcessHelper = require("ProcessHelper")
+    
+    
+    local Watch = require("discordia").Stopwatch()
+    Watch:start()
+
+    
+    local PathLibrary = require("path")
+    
+    local Logger = require("Logger")
+    _G.ProcessHelper = require("ProcessHelper")(Watch)
     _G.FS = require("fs")
     _G.Json = require("json")
-    _G.Watch = require("discordia").Stopwatch()
-    Watch:start()
+    local Read, Write, ReadDir, Exists = FS.readFileSync, FS.writeFileSync, FS.readdirSync, FS.existsSync
+    local OpenGui = true
+
+    
+
+    if WorkingOS == "Windows" then
+        _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../")
+        
+    end
+    
+    local RawDevData = Read(RuntimePath .. "Config/Development.json")
+    local DevData = Json.decode(RawDevData)
+    _G.ShowDebug = DevData.Debug
+    local GitLib = require("Github-Lib")
+
+    Logger.Debug(RuntimePath)
+    
+    for i, v in pairs(Args) do
+        if string.lower(v) == "-nogui" then
+            OpenGui = false
+        end
+    end
+
+    if OpenGui then
+        if WorkingOS == "Windows" then
+
+        end
+    end
     
     if GitLib.IsEnabled() then
         if not GitLib.IsLatest() then
@@ -35,7 +68,7 @@ coroutine.wrap(function ()
 
     print()
     
-    _G.Tasks = {
+    local Tasks = {
         run = require("./Tasks/Run.lua"),
         help = require("./Tasks/Help.lua")
     }
