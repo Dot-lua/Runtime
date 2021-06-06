@@ -21,12 +21,12 @@ return {
         Logger.Info("Starting process with id: " .. ProcessId)
         _G.ProcessPath = RuntimePath .. "Cache/Processes/" .. ProcessId .. "/"
 
-        FS.mkdirSync("./Cache/Processes/")
-        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/")
-        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Archives/")
-        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Running/")
-        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/Resources/")
-        FS.mkdirSync("./Cache/Processes/" .. ProcessId .. "/UnpackCache/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/" .. ProcessId .. "/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/" .. ProcessId .. "/Archives/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/" .. ProcessId .. "/Running/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/" .. ProcessId .. "/Resources/")
+        FS.mkdirSync(RuntimePath .. "Cache/Processes/" .. ProcessId .. "/UnpackCache/")
 
         --print()
 
