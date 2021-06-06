@@ -30,9 +30,10 @@ coroutine.wrap(function ()
 
     if WorkingOS == "Windows" then
         _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../")
-        
     end
     
+    Write(_G.process.env.appdata .. "\\Dot-Lua.RuntimePath", RuntimePath)
+
     local RawDevData = Read(RuntimePath .. "Config/Development.json")
     local DevData = Json.decode(RawDevData)
     _G.ShowDebug = DevData.Debug
