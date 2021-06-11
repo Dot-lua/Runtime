@@ -3,21 +3,19 @@ return function(PackagePath, Log, IsMain)
     local Path = require("path")
     local Logger = require("Logger")
 
-    local FilePos = Path.resolve(PackagePath)
+    local FilePos = Path.resolve(Args[0], PackagePath)
     local FileBase = Path.basename(FilePos)
     local Extension = Path.extname(FileBase)
     local Exists = FS.existsSync(FilePos)
 
-    if Log then
-        local CorrectExtension = Extension == ".dua"
+    
+    local CorrectExtension = Extension == ".dua"
 
-        Logger.Info("Trying to load file " .. FilePos)
-        Logger.Info("File name is: " .. FileBase)
-        Logger.Info("Is Correct Extension: " .. tostring(CorrectExtension))
-        Logger.Info("Extension: '" .. (Extension or "") .. "'")
-        Logger.Info("Exists: " .. tostring(Exists))
-        
-    end
+    Logger.Debug("Trying to load file " .. FilePos)
+    Logger.Debug("File name is: " .. FileBase)
+    Logger.Debug("Is Correct Extension: " .. tostring(CorrectExtension))
+    Logger.Debug("Extension: '" .. (Extension or "") .. "'")
+    Logger.Debug("Exists: " .. tostring(Exists))
 
     if not Exists or not Extension then
         ProcessHelper.Fail("'" .. FileBase .. "' is not a valid DUA archive!")
