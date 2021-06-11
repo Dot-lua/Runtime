@@ -6,7 +6,7 @@ return {
         "--debugmode=[Mode: true, false]"
     },
     Execute = function(Args)
-        local Path = require("Path")
+        local PathLibrary = require("Path")
         local Split = require("Split")
 
         if not Args[1] then
@@ -35,6 +35,7 @@ return {
         _G.Import = require("Runtime/Import")
         _G.LoadPackage = require("Runtime/LoadPackage")
         _G.LoadInternal = require("Runtime/LoadInternal")
+        _G.CallEntrypoint = require("Runtime/CallEntrypoint")
 
         LoadPackage(Args[1], false, true)
 
