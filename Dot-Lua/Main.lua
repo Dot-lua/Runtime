@@ -4,7 +4,8 @@ coroutine.wrap(function ()
 
     -- Path.resolve(args[0] .. "/../../../")
 
-    local Args = args
+    _G.Args = args
+    
     table.remove(Args, 0)
     table.remove(Args, 1)
 
@@ -30,9 +31,12 @@ coroutine.wrap(function ()
 
     if WorkingOS == "Windows" then
         _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../")
+        Write(_G.process.env.appdata .. "\\Dot-Lua.RuntimePath", RuntimePath)
+    elseif WorkingOS == "Mac" then
+        _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../") .. "/"
     end
     
-    Write(_G.process.env.appdata .. "\\Dot-Lua.RuntimePath", RuntimePath)
+    
 
     local RawDevData = Read(RuntimePath .. "Config/Development.json")
     local DevData = Json.decode(RawDevData)
