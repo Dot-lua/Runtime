@@ -45,7 +45,13 @@ function Logger.Log(level, msg, ...)
 	--msg = format(msg, ...)
 
 	local d = date("%H:%M:%S")
-	stdout:write(format('[%s] %s: %s\n', d, tag[2], msg))
+
+	if SimpleLog then
+		print(format('[%s] %s: %s\n', d, tag[2], msg))
+	else
+		stdout:write(format('[%s] %s: %s\n', d, tag[2], msg))
+	end
+	
 
 	return msg
 
