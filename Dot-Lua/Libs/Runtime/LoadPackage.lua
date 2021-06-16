@@ -3,7 +3,7 @@ return function(PackagePath, Log, IsMain)
     local Path = require("path")
     local Logger = require("Logger")
 
-    local FilePos = Path.resolve(Args[0], PackagePath)
+    local FilePos = PackagePath -- Path.normalize(PackagePath)
     local FileBase = Path.basename(FilePos)
     local Extension = Path.extname(FileBase)
     local Exists = FS.existsSync(FilePos)
