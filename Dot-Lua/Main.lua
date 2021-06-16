@@ -12,7 +12,7 @@ coroutine.wrap(function ()
     _G.WorkingOS = Args[1]
     table.remove(Args, 1)
 
-    
+    print(args[0])
     
     local Watch = require("discordia").Stopwatch()
     Watch:start()
@@ -31,6 +31,7 @@ coroutine.wrap(function ()
 
     if WorkingOS == "Windows" then
         _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../")
+        print("Path = " .. RuntimePath)
         Write(_G.process.env.appdata .. "\\Dot-Lua.RuntimePath", RuntimePath)
     elseif WorkingOS == "Mac" then
         _G.RuntimePath = PathLibrary.resolve(args[0] .. "/../../../") .. "/"
@@ -47,7 +48,13 @@ coroutine.wrap(function ()
     
     for i, v in pairs(Args) do
         if string.lower(v) == "-nogui" then
+            table.remove(Args, i)
             OpenGui = false
+        end
+
+        if string.lower(v) == "-simplelog" then
+            table.remove(Args, i)
+            _G.SimpleLog = true
         end
     end
 
